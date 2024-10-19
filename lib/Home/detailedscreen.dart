@@ -69,15 +69,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 ),
               ),
               SizedBox(height: 20),
-              InkWell(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> UserProfileScreen()));
-                },
-                child: Text(
-                  widget.product.title ?? 'No title',
-                  style: GoogleFonts.beVietnamPro(
-                    textStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
+              Text(
+                widget.product.title ?? 'No title',
+                style: GoogleFonts.beVietnamPro(
+                  textStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
               ),
               SizedBox(height: 10),

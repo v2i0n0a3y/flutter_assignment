@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart'as http;
+import '../profile/firebase_profile_screen.dart';
 import 'ShoppingMode.dart';
 import 'detailedscreen.dart';
 import 'favourite_prosucts.dart';
@@ -92,21 +93,27 @@ class _DisplayScreenState extends State<DisplayScreen> {
                 style: GoogleFonts.beVietnamPro(
                     fontWeight: FontWeight.w500, color: Colors.white),
               ),
-              currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.white,
-                backgroundImage: user?.photoURL != null
-                    ? NetworkImage(user!.photoURL!)
-                    : null,
-                child: user?.photoURL == null
-                    ? Text(
-                  user?.displayName != null
-                      ? user!.displayName![0].toUpperCase()
-                      : 'U',
-                  style: TextStyle(
-                      fontSize: 40.0, color: Colors.blueAccent),
-                )
-                    : null,
+              currentAccountPicture: InkWell(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen()));
+                },
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  backgroundImage: user?.photoURL != null
+                      ? NetworkImage(user!.photoURL!)
+                      : null,
+                  child: user?.photoURL == null
+                      ? Text(
+                    user?.displayName != null
+                        ? user!.displayName![0].toUpperCase()
+                        : 'U',
+                    style: TextStyle(
+                        fontSize: 40.0, color: Colors.blueAccent),
+                  )
+                      : null,
+                ),
               ),
+
             ),
             ListTile(
               leading: Icon(Icons.heart_broken),
@@ -119,16 +126,17 @@ class _DisplayScreenState extends State<DisplayScreen> {
                   MaterialPageRoute(
                     builder: (context) => FavoritesScreen(favoriteList: favoriteList),
                   ),
-                );              },
+                );
+                           },
             ),
             Divider(color: Colors.black.withOpacity(.2),),
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings',   style: GoogleFonts.beVietnamPro(
+              leading: Icon(Icons.person),
+              title: Text('Profile',   style: GoogleFonts.beVietnamPro(
                 textStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black.withOpacity(.5)),
               ),),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen()));
               },
             ),
             Divider(color: Colors.black.withOpacity(.2),),
@@ -224,7 +232,7 @@ class _DisplayScreenState extends State<DisplayScreen> {
                               ),
                               SizedBox(height: 5),
                               Text(
-                                '₹ ${item.price.toString() ?? 'N/A'}',
+                                '\$ ${item.price.toString() ?? 'N/A'}',
                                 style: GoogleFonts.beVietnamPro(
                                   textStyle: TextStyle(
                                     fontSize: 12,
